@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "GitLab MR Commit Counter",
+  "name": "Commit Counter for GitLab",
   "version": "0.1.0",
   "description": "Shows the position of the viewed commit (e.g. 3 / 17) when reviewing a GitLab merge request commit by commit.",
   "author": "Maxime Crampon",
@@ -19,7 +19,7 @@
   },
   "permissions": ["storage"],
   "action": {
-    "default_title": "GitLab MR Commit Counter",
+    "default_title": "Commit Counter for GitLab",
     "default_icon": "icons/icon.svg",
     "default_popup": "popup/popup.html"
   },

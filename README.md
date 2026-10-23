@@ -1,4 +1,4 @@
-# <img src="src/icons/icon.svg" alt="" width="32" height="32" align="top"> GitLab MR Commit Counter
+# <img src="src/icons/icon.svg" alt="" width="32" height="32" align="top"> Commit Counter for GitLab
 
 Firefox extension that shows which commit you are viewing (e.g. `3 / 17`) when reviewing a GitLab merge request commit by commit.
 
