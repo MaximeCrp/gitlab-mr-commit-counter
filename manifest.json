@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "GitLab MR Commit Counter",
+  "version": "0.1.0",
+  "description": "Shows the position of the viewed commit (e.g. 3 / 17) when reviewing a GitLab merge request commit by commit.",
+  "author": "Maxime Crampon",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "gitlab-mr-commit-counter@local",
+      "strict_min_version": "128.0"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*/-/merge_requests/*"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}
