@@ -10,6 +10,10 @@
       "strict_min_version": "128.0"
     }
   },
+  "permissions": ["storage"],
+  "options_ui": {
+    "page": "options.html"
+  },
   "content_scripts": [
     {
       "matches": ["*://*/*/-/merge_requests/*"],

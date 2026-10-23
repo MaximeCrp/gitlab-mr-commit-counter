@@ -2,7 +2,9 @@ const BADGE_CLASS = "mr-commit-counter";
 const PER_PAGE = 100;
 const VERSION_CHECK_COOLDOWN_MS = 30_000;
 const NAV_BUTTONS_SELECTOR = '.commit-nav-buttons, [data-testid="commit-nav-buttons"]';
+const DEFAULT_SETTINGS = { showInlineCount: true, showFloatingCount: true, enableShortcuts: false };
 const mergeRequests = new Map();
+let settings = { ...DEFAULT_SETTINGS };
 
 const pageFetch = typeof content !== "undefined" && content.fetch ? content.fetch : fetch;
 
@@ -85,6 +87,10 @@ function createBadge(variant) {
 
 function placeFloatingBadge() {
   let floating = document.querySelector(`.${BADGE_CLASS}--floating`);
+  if (!settings.showFloatingCount) {
+    floating?.remove();
+    return null;
+  }
   if (!floating) {
     floating = createBadge("floating");
     document.body.append(floating);
@@ -96,10 +102,10 @@ function placeInlineBadge() {
   const navButtons = document.querySelector(NAV_BUTTONS_SELECTOR);
   let inline = document.querySelector(`.${BADGE_CLASS}--inline`);
   const isPlacedAfterNav = inline && navButtons && navButtons.nextElementSibling === inline;
-  if (isPlacedAfterNav) return inline;
+  if (settings.showInlineCount && isPlacedAfterNav) return inline;
 
   inline?.remove();
-  if (!navButtons) return null;
+  if (!settings.showInlineCount || !navButtons) return null;
   inline = createBadge("inline");
   navButtons.after(inline);
   return inline;
@@ -174,7 +180,7 @@ function isDisabled(button) {
 function handleCommitShortcut(event) {
   const direction = SHORTCUT_DIRECTIONS[event.key];
   const hasModifier = event.ctrlKey || event.metaKey || event.altKey;
-  if (!direction || hasModifier || isTypingIn(event.target) || !parseLocation()) return;
+  if (!settings.enableShortcuts || !direction || hasModifier || isTypingIn(event.target) || !parseLocation()) return;
 
   const button = findNeighborCommitButton(direction);
   if (!button || isDisabled(button)) return;
@@ -183,6 +189,22 @@ function handleCommitShortcut(event) {
   button.click();
 }
 
+async function loadSettings() {
+  try {
+    settings = { ...DEFAULT_SETTINGS, ...(await browser.storage.sync.get(DEFAULT_SETTINGS)) };
+  } catch {
+    settings = { ...DEFAULT_SETTINGS };
+  }
+}
+
+browser.storage.onChanged.addListener(async (_changes, area) => {
+  if (area !== "sync") return;
+  await loadSettings();
+  render();
+});
+
 window.addEventListener("keydown", handleCommitShortcut, true);
-render();
-setInterval(render, 500);
+loadSettings().then(() => {
+  render();
+  setInterval(render, 500);
+});
