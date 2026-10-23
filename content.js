@@ -155,5 +155,34 @@ function render() {
   paintBadges();
 }
 
+const SHORTCUT_DIRECTIONS = { p: "previous", n: "next" };
+
+function isTypingIn(element) {
+  return Boolean(element.closest?.('input, textarea, select, [contenteditable]:not([contenteditable="false"])'));
+}
+
+function findNeighborCommitButton(direction) {
+  const navButtons = document.querySelector(NAV_BUTTONS_SELECTOR);
+  const buttons = navButtons ? [...navButtons.querySelectorAll("a, button")] : [];
+  return direction === "previous" ? buttons[0] : buttons.at(-1);
+}
+
+function isDisabled(button) {
+  return button.matches(':disabled, .disabled, [aria-disabled="true"]');
+}
+
+function handleCommitShortcut(event) {
+  const direction = SHORTCUT_DIRECTIONS[event.key];
+  const hasModifier = event.ctrlKey || event.metaKey || event.altKey;
+  if (!direction || hasModifier || isTypingIn(event.target) || !parseLocation()) return;
+
+  const button = findNeighborCommitButton(direction);
+  if (!button || isDisabled(button)) return;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  button.click();
+}
+
+window.addEventListener("keydown", handleCommitShortcut, true);
 render();
 setInterval(render, 500);
