@@ -6,7 +6,7 @@
   "author": "Maxime Crampon",
   "browser_specific_settings": {
     "gecko": {
-      "id": "gitlab-mr-commit-counter@local",
+      "id": "commit-counter-for-gitlab@maximecrp.github.io",
       "strict_min_version": "142.0",
       "data_collection_permissions": {
         "required": ["none"]
