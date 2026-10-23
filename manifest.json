@@ -10,7 +10,16 @@
       "strict_min_version": "128.0"
     }
   },
+  "icons": {
+    "48": "icon.svg",
+    "96": "icon.svg"
+  },
   "permissions": ["storage"],
+  "action": {
+    "default_title": "GitLab MR Commit Counter",
+    "default_icon": "icon.svg",
+    "default_popup": "options.html"
+  },
   "options_ui": {
     "page": "options.html"
   },
