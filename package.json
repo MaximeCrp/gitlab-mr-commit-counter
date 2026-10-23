@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "author": "Maxime Crampon",
+  "license": "MIT",
   "scripts": {
     "build": "node scripts/build.mjs",
     "watch": "node scripts/build.mjs --watch",
