@@ -23,7 +23,7 @@ const buildContext = await context({
   outdir: OUTPUT_DIR,
   bundle: true,
   format: "iife",
-  target: "firefox128",
+  target: "firefox142",
   logLevel: "info",
   plugins: [copyStaticFilesPlugin],
 });
