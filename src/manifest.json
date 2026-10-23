@@ -11,23 +11,23 @@
     }
   },
   "icons": {
-    "48": "icon.svg",
-    "96": "icon.svg"
+    "48": "icons/icon.svg",
+    "96": "icons/icon.svg"
   },
   "permissions": ["storage"],
   "action": {
     "default_title": "GitLab MR Commit Counter",
-    "default_icon": "icon.svg",
-    "default_popup": "options.html"
+    "default_icon": "icons/icon.svg",
+    "default_popup": "popup/popup.html"
   },
   "options_ui": {
-    "page": "options.html"
+    "page": "popup/popup.html"
   },
   "content_scripts": [
     {
       "matches": ["*://*/*/-/merge_requests/*"],
-      "js": ["content.js"],
-      "css": ["content.css"],
+      "js": ["content/index.js"],
+      "css": ["content/content.css"],
       "run_at": "document_idle"
     }
   ]

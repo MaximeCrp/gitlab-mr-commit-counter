@@ -1,4 +1,4 @@
-# <img src="icon.svg" alt="" width="32" height="32" align="top"> GitLab MR Commit Counter
+# <img src="src/icons/icon.svg" alt="" width="32" height="32" align="top"> GitLab MR Commit Counter
 
 Firefox extension that shows which commit you are viewing (e.g. `3 / 17`) when reviewing a GitLab merge request commit by commit.
 
@@ -9,5 +9,38 @@ Firefox extension that shows which commit you are viewing (e.g. `3 / 17`) when r
 
 ## Install
 
+```sh
+pnpm install
+pnpm build
+```
+
 1. Open `about:debugging#/runtime/this-firefox`
-2. Click **Load Temporary Add-on…** and pick `manifest.json`
+2. Click **Load Temporary Add-on…** and pick `dist/manifest.json`
+
+## Development
+
+| Command | Description |
+| --- | --- |
+| `pnpm build` | Bundle `src/` into `dist/` |
+| `pnpm watch` | Rebuild on change |
+| `pnpm start` | Run Firefox with the extension loaded |
+| `pnpm lint` | Lint the built extension with `web-ext` |
+| `pnpm package` | Build a zip in `web-ext-artifacts/` |
+
+```
+src/
+├── manifest.json
+├── icons/
+├── shared/settings.js      settings defaults and storage
+├── content/                content script injected in merge request pages
+│   ├── index.js            entry point: render loop and wiring
+│   ├── gitlab-page.js      URL parsing and GitLab DOM lookups
+│   ├── gitlab-api.js       GitLab REST API calls
+│   ├── commit-cache.js     commit list cache per merge request
+│   ├── commit-position.js  position label
+│   ├── badges.js           inline and floating badges
+│   ├── shortcuts.js        p / n shortcuts
+│   └── content.css
+└── popup/                  settings popup, also used as the preferences page
+scripts/build.mjs           esbuild bundling and static files copy
+```

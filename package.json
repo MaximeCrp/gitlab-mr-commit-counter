@@ -1,0 +1,18 @@
+{
+  "name": "gitlab-mr-commit-counter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "author": "Maxime Crampon",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "watch": "node scripts/build.mjs --watch",
+    "start": "web-ext run --source-dir dist",
+    "lint": "web-ext lint --source-dir dist",
+    "package": "web-ext build --source-dir dist --overwrite-dest"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "web-ext": "^10.8.0"
+  }
+}
